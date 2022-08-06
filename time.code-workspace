@@ -1,0 +1,16 @@
+{
+    "folders": [
+        {
+            "name": "✨ showrunner-time",
+            "path": "."
+        },
+        {
+            "name": "@coderatparadise-showrunner-network-npm-1.0.1-2188c3de76-8728340107.zip",
+            "uri": "zip:e:\\Dev\\showrunner\\time\\.yarn\\cache\\@coderatparadise-showrunner-network-npm-1.0.1-2188c3de76-8728340107.zip"
+        }
+    ],
+    "settings": {
+        "typescript.tsdk": ".yarn/sdks/typescript/lib",
+        "typescript.enablePromptUseWorkspaceTsdk": true
+    }
+}
