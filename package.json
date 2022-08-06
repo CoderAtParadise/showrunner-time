@@ -1,6 +1,6 @@
 {
   "name": "@coderatparadise/showrunner-time",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Time library for showrunner modules",
   "packageManager": "yarn@3.2.1",
   "type": "module",
@@ -36,14 +36,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/CoderAtParadies/showrunner-time/lib"
+    "url": "https://github.com/CoderAtParadise/showrunner-time"
   },
   "author": "CoderAtParadise",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/CoderAtParadies/showrunner-time/issues"
+    "url": "https://github.com/CoderAtParadise/showrunner-time/issues"
   },
-  "homepage": "https://github.com/CoderAtParadies/showrunner-time#readme",
+  "homepage": "https://github.com/CoderAtParadise/showrunner-time#readme",
   "dependencies": {
     "@coderatparadise/showrunner-network": "^1.2.0",
     "@trpc/server": "^10.0.0-alpha.41",
