@@ -11,6 +11,7 @@ export interface ClockManager {
     setTime: (id: ClockLookup, time: SMPTE) => Promise<boolean>;
     request: (id: ClockLookup) => IClockSource;
     list: () => ClockLookup[];
+    //eslint-disable-next-line @typescript-eslint/no-explicit-any
     add: (clock: IClockSource<any>) => boolean;
     remove: (id: ClockLookup) => boolean;
     update: (id: ClockLookup, settings: object) => object;

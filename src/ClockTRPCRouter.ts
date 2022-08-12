@@ -1,4 +1,4 @@
-import {initTRPC, TRPCError } from "@trpc/server";
+import { initTRPC, TRPCError } from "@trpc/server";
 import { observable } from "@trpc/server/observable";
 import { z } from "zod";
 import { Codec, getCodec } from "@coderatparadise/showrunner-network/codec";
@@ -62,28 +62,6 @@ export function getClockRouter(manager: (lookup: ClockLookup) => ClockManager) {
                     input.lookup as ClockLookup,
                     new SMPTE(input.time)
                 );
-            }),
-        lookup: t.procedure
-            .input(z.string())
-            .output(
-                z.object({
-                    service: z.string(),
-                    show: z.string(),
-                    session: z.string(),
-                    id: z.string(),
-                    type: z.string()
-                })
-            )
-            .query(({ input }) => {
-                const lookup = input as ClockLookup;
-
-                return {
-                    service: "unknown",
-                    show: "unknown",
-                    session: "unknown",
-                    id: "unknown",
-                    type: "unknown"
-                };
             }),
         data: t.procedure.input(z.string()).subscription(({ input }) => {
             const _manager = manager(input as ClockLookup);
@@ -199,7 +177,7 @@ export function getClockRouter(manager: (lookup: ClockLookup) => ClockManager) {
                     })
                     .passthrough()
             )
-            .mutation(({ input, ctx }) => {
+            .mutation(({ input }) => {
                 const _manager = manager(input.lookup as ClockLookup);
                 const clock = (
                     getCodec("sync_create_clock") as Codec<IClockSource>
@@ -213,7 +191,7 @@ export function getClockRouter(manager: (lookup: ClockLookup) => ClockManager) {
                     .eventHandler()
                     .emit(`sync_clock_list_${_manager.id()}`);
             }),
-        delete: t.procedure.input(z.string()).mutation(({ input, ctx }) => {
+        delete: t.procedure.input(z.string()).mutation(({ input }) => {
             const _manager = manager(input as ClockLookup);
             if (_manager.remove(input as ClockLookup))
                 throw new TRPCError({

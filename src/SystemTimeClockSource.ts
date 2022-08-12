@@ -1,4 +1,3 @@
-import { resolve } from "path";
 import {
     BaseClockConfig,
     IClockSource,
@@ -9,6 +8,8 @@ import {
 import { FrameRate, SMPTE } from "./SMPTE.js";
 
 let initialized: IClockSource;
+const falseReturn = async () => Promise.resolve(false);
+const voidReturn = async () => Promise.resolve();
 
 /**
  * Implementation of {@link ClockSource} for System Time
@@ -58,19 +59,19 @@ export function createSystemTimeClockSource(host: string): IClockSource {
                 return new SMPTE();
             },
             async play(): Promise<boolean> {
-                return false;
+                return await falseReturn();
             },
             async pause(): Promise<boolean> {
-                return false;
+                return await falseReturn();
             },
             async stop(): Promise<boolean> {
-                return false;
+                return await falseReturn();
             },
             async reset(): Promise<boolean> {
-                return false;
+                return await falseReturn();
             },
             async setTime(): Promise<boolean> {
-                return false;
+                return await falseReturn();
             },
             async updateConfig(): Promise<void> {
                 // NOOP
@@ -78,14 +79,14 @@ export function createSystemTimeClockSource(host: string): IClockSource {
             data(): object {
                 return {};
             },
-            async _syncState(): Promise<void> {
+            _syncState(): void {
                 // NOOP
             },
-            async _syncData(): Promise<void> {
+            _syncData(): void {
                 // NOOP
             },
             async _update(): Promise<void> {
-                // NOOP
+                return await voidReturn();
             }
         };
     }

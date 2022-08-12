@@ -19,6 +19,8 @@ import { getClockRouter } from "../ClockTRPCRouter.js";
 import { createIdentifier, createLookup } from "../ClockIdentifierUtils.js";
 
 type ClockRouter = ReturnType<typeof getClockRouter>;
+const falseReturn = async () => Promise.resolve(false);
+const voidReturn = async () => Promise.resolve();
 
 export class ClientClockSource implements IClockSource<unknown> {
     constructor(lookup: ClockLookup) {
@@ -49,10 +51,6 @@ export class ClientClockSource implements IClockSource<unknown> {
         return this._additional?.controlBar || [];
     }
 
-    settings(): BaseClockConfig & any {
-        return this._config;
-    }
-
     status(): ClockStatus {
         return this._currentState?.status || ClockStatus.INVALID;
     }
@@ -77,7 +75,7 @@ export class ClientClockSource implements IClockSource<unknown> {
     }
 
     name(): string {
-        if (this._additional?.name !== "") return this._additional!.name;
+        if (this._additional?.name && this._additional?.name !== "") return this._additional.name;
         return this._config?.name || "";
     }
 
@@ -103,7 +101,7 @@ export class ClientClockSource implements IClockSource<unknown> {
         if (proxy) {
             return await proxy.play.query(createLookup(this.identifier()));
         }
-        return await false;
+        return await falseReturn();
     }
 
     async pause(): Promise<boolean> {
@@ -113,7 +111,7 @@ export class ClientClockSource implements IClockSource<unknown> {
         if (proxy) {
             return await proxy.pause.query(createLookup(this.identifier()));
         }
-        return await false;
+        return await falseReturn();
     }
 
     async stop(): Promise<boolean> {
@@ -123,7 +121,7 @@ export class ClientClockSource implements IClockSource<unknown> {
         if (proxy) {
             return await proxy.stop.query(createLookup(this.identifier()));
         }
-        return await false;
+        return await falseReturn();
     }
 
     async reset(override: boolean): Promise<boolean> {
@@ -136,7 +134,7 @@ export class ClientClockSource implements IClockSource<unknown> {
                 override: override
             });
         }
-        return await false;
+        return await falseReturn();
     }
 
     async setTime(time: SMPTE): Promise<boolean> {
@@ -149,7 +147,7 @@ export class ClientClockSource implements IClockSource<unknown> {
                 time: time.toString()
             });
         }
-        return await false;
+        return await falseReturn();
     }
 
     async updateConfig(
@@ -162,11 +160,12 @@ export class ClientClockSource implements IClockSource<unknown> {
                 TRPCClientProxy<ClockRouter["_def"]["record"], ClockRouter>
             >(`trpc:${this.identifier().service}`);
             if (proxy)
-                proxy.updateConfig.mutate({
+                await proxy.updateConfig.mutate({
                     lookup: createLookup(this.identifier()),
                     ...settings
                 });
         }
+        return await voidReturn();
     }
 
     _syncState(state: CurrentClockState): void {
@@ -181,6 +180,10 @@ export class ClientClockSource implements IClockSource<unknown> {
         const proxy = serviceManager.get<
             TRPCClientProxy<ClockRouter["_def"]["record"], ClockRouter>
         >(`trpc:${this.identifier().service}`);
+        if(proxy) {
+            // NOOP
+        }
+        return await voidReturn();
     }
 
     private _identifier: ClockIdentifier;

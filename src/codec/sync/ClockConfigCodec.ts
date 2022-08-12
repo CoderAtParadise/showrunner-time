@@ -22,7 +22,14 @@ export const ClockConfigCodec: Codec<IClockSource> = {
 
     deserialize(json: serializeTypes, obj?: IClockSource): IClockSource {
         if (!obj) throw Error("Failed to deserialize due to missing clock");
-        obj.updateConfig(json as BaseClockConfig & unknown);
+        obj.updateConfig(json as BaseClockConfig & unknown).then(
+            () => {
+                /* NOOP */
+            },
+            () => {
+                /* NOOP */
+            }
+        );
         return obj;
     }
 };
