@@ -3,7 +3,7 @@ import {
     getCodec,
     serializeTypes
 } from "@coderatparadise/showrunner-network/codec";
-import { IClockSource } from "../../IClockSource.js";
+import { BaseClockConfig, IClockSource } from "../../IClockSource.js";
 
 export const ClockConfigCodec: Codec<IClockSource> = {
     serialize(obj: IClockSource): serializeTypes {
@@ -22,7 +22,7 @@ export const ClockConfigCodec: Codec<IClockSource> = {
 
     deserialize(json: serializeTypes, obj?: IClockSource): IClockSource {
         if (!obj) throw Error("Failed to deserialize due to missing clock");
-        obj.updateConfig(json);
+        obj.updateConfig(json as BaseClockConfig & unknown);
         return obj;
     }
 };

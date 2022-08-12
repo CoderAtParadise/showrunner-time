@@ -1,3 +1,4 @@
+import { resolve } from "path";
 import {
     BaseClockConfig,
     IClockSource,
@@ -35,7 +36,7 @@ export function createSystemTimeClockSource(host: string): IClockSource {
             status(): ClockStatus {
                 return ClockStatus.RUNNING;
             },
-            frameRate() : FrameRate {
+            frameRate(): FrameRate {
                 return FrameRate.F1000;
             },
             isOverrun(): boolean {
@@ -56,34 +57,34 @@ export function createSystemTimeClockSource(host: string): IClockSource {
             duration(): SMPTE {
                 return new SMPTE();
             },
-            play(): void {
-                // NOOP
+            async play(): Promise<boolean> {
+                return false;
             },
-            setTime() {
-                // NOOP
+            async pause(): Promise<boolean> {
+                return false;
             },
-            pause(): void {
-                // NOOP
+            async stop(): Promise<boolean> {
+                return false;
             },
-            stop(): void {
-                // NOOP
+            async reset(): Promise<boolean> {
+                return false;
             },
-            reset(): void {
-                // NOOP
+            async setTime(): Promise<boolean> {
+                return false;
             },
-            updateConfig(): void {
+            async updateConfig(): Promise<void> {
                 // NOOP
             },
             data(): object {
                 return {};
             },
-            _syncState(): void {
+            async _syncState(): Promise<void> {
                 // NOOP
             },
-            _syncData(): void {
+            async _syncData(): Promise<void> {
                 // NOOP
             },
-            _update(): void {
+            async _update(): Promise<void> {
                 // NOOP
             }
         };

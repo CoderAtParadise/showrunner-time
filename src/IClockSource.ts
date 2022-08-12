@@ -36,10 +36,10 @@ export type BaseClockConfig = {
     blackList?: string[];
 };
 /**
- * Type used for looup and storage of a clock id
+ * Type used for looup
  * @public
  */
-export type ClockLookup = `${string}:${string}:${string}`;
+export type ClockLookup = `${string}:${string}:${string}:${string}:${string}`; // service:show:session:id:type
 
 /**
  * Type used for the structure of identifying clocks
@@ -118,30 +118,38 @@ export interface IClockSource<Settings = unknown> {
     duration: () => SMPTE;
     /**
      * Starts the clock running and sets the status to {@link ClockStatus.RUNNING}
+     * @returns if the operation took place
      */
-    play: () => void;
-    /**
-     * Sets the clock to a specific time
-     */
-    setTime: (time: SMPTE) => void;
+    play: () => Promise<boolean>;
     /**
      * Pause the operation of the clock and sets ths status to {@link ClockStatus.PAUSED}
+     * @returns if the operation took place
      */
-    pause: (override: boolean) => void;
+    pause: (override: boolean) => Promise<boolean>;
     /**
      * Stops the operatiion of the clock and sets the status to {@link ClockStatus.STOPPED}
+     * @returns if the operation took place
      */
-    stop: (override: boolean) => void;
+    stop: (override: boolean) => Promise<boolean>;
     /**
      * Stops the operation of the clock, Resets the clock to default state and sets the status to {@link ClockStatus.RESET}
+     * @returns if the operation took place
      */
-    reset: (override: boolean) => void;
+    reset: (override: boolean) => Promise<boolean>;
+    /**
+     * Sets the clock to a specific time
+     * @returns if the operation took place
+     */
+    setTime: (time: SMPTE) => Promise<boolean>;
     /**
      * Updates the settings for the clock
      * @param settings - The settings to update
      * @returns The updated settings
      */
-    updateConfig: (settings: unknown) => void;
+    updateConfig: (
+        newConfig: BaseClockConfig & Settings,
+        local?: boolean
+    ) => Promise<void>;
     /**
      * Returns any additional data asociated with the clock
      * @returns Additional data associated with the clock
@@ -158,12 +166,12 @@ export interface IClockSource<Settings = unknown> {
      * @param data - {@link AdditionalData}
      * @internal
      */
-    _syncData:(data: AdditionalData) => void;
+    _syncData: (data: AdditionalData) => void;
     /**
      * Updates various functionallity of the clock
      *
      * Called automatically by the main update loop
      * @internal
      */
-    _update: () => void;
+    _update: () => Promise<void>;
 }

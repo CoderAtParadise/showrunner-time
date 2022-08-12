@@ -1,96 +1,93 @@
-import { inferAsyncReturnType, initTRPC, TRPCError } from "@trpc/server";
-import { CreateHTTPContextOptions } from "@trpc/server/adapters/standalone";
-import { CreateWSSContextFnOptions } from "@trpc/server/adapters/ws";
+import {initTRPC, TRPCError } from "@trpc/server";
 import { observable } from "@trpc/server/observable";
 import { z } from "zod";
 import { Codec, getCodec } from "@coderatparadise/showrunner-network/codec";
 import { ClockManager } from "./ClockManager.js";
 import { AdditionalData, CurrentClockState } from "./codec/index.js";
-import { BaseClockConfig, IClockSource } from "./IClockSource.js";
+import { BaseClockConfig, ClockLookup, IClockSource } from "./IClockSource.js";
+import { SMPTE } from "./SMPTE.js";
 
-export function getClockRouter(
-    context: ({
-        req,
-        res
-    }: CreateHTTPContextOptions | CreateWSSContextFnOptions) => {
-        manager: ClockManager | undefined;
-        id: string;
-    }
-) {
-    type Context = inferAsyncReturnType<typeof context>;
-    const t = initTRPC<{ ctx: Context }>()();
+export function getClockRouter(manager: (lookup: ClockLookup) => ClockManager) {
+    const t = initTRPC()();
 
-    const getManager = t.middleware(({ next, ctx }) => {
-        if (!ctx.manager)
-            throw new TRPCError({
-                message: `Unable to find clock manager: ${ctx.id}`,
-                code: "NOT_FOUND"
-            });
-        return next({
-            ctx: {
-                manager: ctx.manager
-            }
-        });
-    });
-    const hasManager = t.procedure.use(getManager);
     const router = t.router({
-        play: hasManager
+        play: t.procedure
             .input(z.string())
-            .output(z.void())
-            .query(({ input, ctx }) => {
-                if (!ctx.manager.play(input))
-                    throw new TRPCError({
-                        message: `Unable to play clock: ${input}`,
-                        code: "NOT_FOUND"
-                    });
+            .output(z.boolean())
+            .query(async ({ input }) => {
+                return await manager(input as ClockLookup).play(
+                    input as ClockLookup
+                );
             }),
-        pause: hasManager
+        pause: t.procedure
             .input(z.string())
-            .output(z.void())
-            .query(({ input, ctx }) => {
-                if (!ctx.manager.pause(input))
-                    throw new TRPCError({
-                        message: `Unable to pause clock: ${input}`,
-                        code: "NOT_FOUND"
-                    });
+            .output(z.boolean())
+            .query(async ({ input }) => {
+                return await manager(input as ClockLookup).pause(
+                    input as ClockLookup
+                );
             }),
-        stop: hasManager
+        stop: t.procedure
             .input(z.string())
-            .output(z.void())
-            .query(({ input, ctx }) => {
-                if (!ctx.manager.stop(input))
-                    throw new TRPCError({
-                        message: `Unable to stop clock: ${input}`,
-                        code: "NOT_FOUND"
-                    });
+            .output(z.boolean())
+            .query(async ({ input }) => {
+                return await manager(input as ClockLookup).stop(
+                    input as ClockLookup
+                );
             }),
-        reset: hasManager
-            .input(z.string())
-            .output(z.void())
-            .query(({ input, ctx }) => {
-                if (!ctx.manager.reset(input))
-                    throw new TRPCError({
-                        message: `Unable to reset clock: ${input}`,
-                        code: "NOT_FOUND"
-                    });
-            }),
-        setTime: hasManager
+        reset: t.procedure
             .input(
                 z.object({
-                    id: z.string(),
+                    lookup: z.string(),
+                    override: z.boolean()
+                })
+            )
+            .output(z.boolean())
+            .query(async ({ input }) => {
+                return await manager(input.lookup as ClockLookup).reset(
+                    input.lookup as ClockLookup,
+                    input.override
+                );
+            }),
+        setTime: t.procedure
+            .input(
+                z.object({
+                    lookup: z.string(),
                     time: z.string()
                 })
             )
-            .output(z.void())
-            .mutation(({ input, ctx }) => {
-                if (!ctx.manager.setTime(input.id, input.time))
-                    throw new TRPCError({
-                        message: `Unable to set time for clock: ${input.id}`,
-                        code: "NOT_FOUND"
-                    });
+            .output(z.boolean())
+            .mutation(async ({ input }) => {
+                return await manager(input.lookup as ClockLookup).setTime(
+                    input.lookup as ClockLookup,
+                    new SMPTE(input.time)
+                );
             }),
-        data: hasManager.input(z.string()).subscription(({ input, ctx }) => {
-            const clock = ctx.manager.request(input);
+        lookup: t.procedure
+            .input(z.string())
+            .output(
+                z.object({
+                    service: z.string(),
+                    show: z.string(),
+                    session: z.string(),
+                    id: z.string(),
+                    type: z.string()
+                })
+            )
+            .query(({ input }) => {
+                const lookup = input as ClockLookup;
+
+                return {
+                    service: "unknown",
+                    show: "unknown",
+                    session: "unknown",
+                    id: "unknown",
+                    type: "unknown"
+                };
+            }),
+        data: t.procedure.input(z.string()).subscription(({ input }) => {
+            const _manager = manager(input as ClockLookup);
+            const clock = _manager.request(input as ClockLookup);
             return observable<AdditionalData>((emit) => {
                 const onUpdate = () => {
                     const data = (
@@ -98,12 +95,12 @@ export function getClockRouter(
                     ).serialize(clock) as AdditionalData;
                     emit.next(data);
                 };
-                ctx.manager
+                _manager
                     .eventHandler()
                     .on(`sync_clock_data_${clock.identifier().id}`, onUpdate);
 
                 return () => {
-                    ctx.manager
+                    _manager
                         .eventHandler()
                         .off(
                             `sync_clock_data_${clock.identifier().id}`,
@@ -112,8 +109,9 @@ export function getClockRouter(
                 };
             });
         }),
-        current: hasManager.input(z.string()).subscription(({ input, ctx }) => {
-            const clock = ctx.manager.request(input);
+        current: t.procedure.input(z.string()).subscription(({ input }) => {
+            const _manager = manager(input as ClockLookup);
+            const clock = _manager.request(input as ClockLookup);
             return observable<CurrentClockState>((emit) => {
                 const onUpdate = () => {
                     const data = (
@@ -121,7 +119,7 @@ export function getClockRouter(
                     ).serialize(clock) as CurrentClockState;
                     emit.next(data);
                 };
-                ctx.manager
+                _manager
                     .eventHandler()
                     .on(
                         `sync_clock_current_${clock.identifier().id}`,
@@ -129,7 +127,7 @@ export function getClockRouter(
                     );
 
                 return () => {
-                    ctx.manager
+                    _manager
                         .eventHandler()
                         .off(
                             `sync_clock_current_${clock.identifier().id}`,
@@ -138,8 +136,9 @@ export function getClockRouter(
                 };
             });
         }),
-        config: hasManager.input(z.string()).subscription(({ input, ctx }) => {
-            const clock = ctx.manager.request(input);
+        config: t.procedure.input(z.string()).subscription(({ input }) => {
+            const _manager = manager(input as ClockLookup);
+            const clock = _manager.request(input as ClockLookup);
             return observable<BaseClockConfig & unknown>((emit) => {
                 const onUpdate = () => {
                     const data = (
@@ -147,11 +146,11 @@ export function getClockRouter(
                     ).serialize(clock) as BaseClockConfig & unknown;
                     emit.next(data);
                 };
-                ctx.manager
+                _manager
                     .eventHandler()
                     .on(`sync_clock_config_${clock.identifier().id}`, onUpdate);
                 return () => {
-                    ctx.manager
+                    _manager
                         .eventHandler()
                         .off(
                             `sync_clock_config_${clock.identifier().id}`,
@@ -160,65 +159,68 @@ export function getClockRouter(
                 };
             });
         }),
-        updateConfig: hasManager
-            .input(z.object({ id: z.string() }).passthrough())
+        updateConfig: t.procedure
+            .input(z.object({ lookup: z.string() }).passthrough())
             .output(z.void())
-            .mutation(({ input, ctx }) => {
-                const clock = ctx.manager.request(input.id);
+            .mutation(({ input }) => {
+                const _manager = manager(input.lookup as ClockLookup);
+                const clock = _manager.request(input.lookup as ClockLookup);
                 const config = getCodec(
                     "sync_clock_config"
                 ) as Codec<IClockSource>;
                 config.deserialize(input, clock);
-                ctx.manager
+                _manager
                     .eventHandler()
-                    .emit(`sync_clock_config_${input.id}`);
+                    .emit(`sync_clock_config_${clock.identifier().id}`);
             }),
-        list: hasManager.input(z.void()).subscription(({ ctx }) => {
+        list: t.procedure.input(z.string()).subscription(({ input }) => {
+            const _manager = manager(input as ClockLookup);
             return observable<string[]>((emit) => {
                 const onupdate = () => {
-                    emit.next(ctx.manager.list());
+                    emit.next(_manager.list());
                 };
-                ctx.manager
+                _manager
                     .eventHandler()
-                    .on(`sync_clock_list_${ctx.manager.id()}`, onupdate);
+                    .on(`sync_clock_list_${_manager.id()}`, onupdate);
                 return () => {
-                    ctx.manager
+                    _manager
                         .eventHandler()
-                        .off(`sync_clock_list_${ctx.manager.id()}`, onupdate);
+                        .off(`sync_clock_list_${_manager.id()}`, onupdate);
                 };
             });
         }),
-        create: hasManager
+        create: t.procedure
             .input(
                 z
                     .object({
+                        lookup: z.string(),
                         name: z.string(),
                         type: z.string()
                     })
                     .passthrough()
             )
             .mutation(({ input, ctx }) => {
+                const _manager = manager(input.lookup as ClockLookup);
                 const clock = (
                     getCodec("sync_create_clock") as Codec<IClockSource>
                 ).deserialize(input);
-                if (!ctx.manager.add(clock))
+                if (!_manager.add(clock))
                     throw new TRPCError({
                         message: `Unable to create clock: ${input.type}:${input.name}`,
                         code: "PARSE_ERROR"
                     });
-                ctx.manager
+                _manager
                     .eventHandler()
-                    .emit(`sync_clock_list_${ctx.manager.id()}`);
+                    .emit(`sync_clock_list_${_manager.id()}`);
             }),
-        delete: hasManager.input(z.string()).mutation(({ input, ctx }) => {
-            if (ctx.manager.remove(input))
+        delete: t.procedure.input(z.string()).mutation(({ input, ctx }) => {
+            const _manager = manager(input as ClockLookup);
+            if (_manager.remove(input as ClockLookup))
                 throw new TRPCError({
                     message: `Unable to delete clock: ${input}`,
                     code: "NOT_FOUND"
                 });
-            ctx.manager
-                .eventHandler()
-                .emit(`sync_clock_list_${ctx.manager.id()}`);
+            _manager.eventHandler().emit(`sync_clock_list_${_manager.id()}`);
         })
     });
     return router;

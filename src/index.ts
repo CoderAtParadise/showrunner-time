@@ -3,6 +3,7 @@ import {
     ControlBar,
     ClockStatus,
     BaseClockConfig,
+    ClockLookup,
     ClockIdentifier,
     IClockSource
 } from "./IClockSource.js";
@@ -13,6 +14,7 @@ import { getClockRouter } from "./ClockTRPCRouter.js";
 
 export type {
     BaseClockConfig,
+    ClockLookup,
     ClockIdentifier,
 }
 
