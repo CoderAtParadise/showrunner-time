@@ -3,18 +3,19 @@ import { ClockDirection } from "../../ClockSettings.js";
 import { ClockStatus } from "../../IClockSource.js";
 import { zeroPad } from "../../ZeroPad.js";
 import { ClientClockSource } from "../ClientClockSource.js";
+import { LooseObject } from "../LooseObject.js";
 
 export const ClockSourceComponent = (props: {
     className?: string;
     clock: ClientClockSource;
 }) => {
     let time = props.clock.current();
-    if (props.clock.settings !== undefined) {
-        const settings = props.clock.settings;
-        if (settings().time) {
+    if (props.clock.config()) {
+        const settings = props.clock.config() as LooseObject;
+        if (settings.time) {
             const duration = props.clock.duration();
             if (props.clock.status() === ClockStatus.RESET) time = duration;
-            else if (settings().direction === ClockDirection.COUNTDOWN) {
+            else if (settings.direction === ClockDirection.COUNTDOWN) {
                 if (time.greaterThan(duration, true))
                     time = time.subtract(duration, true).setOffset(Offset.END);
                 else time = duration.subtract(time, true);
