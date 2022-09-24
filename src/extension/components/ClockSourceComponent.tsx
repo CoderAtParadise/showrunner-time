@@ -14,7 +14,7 @@ export const ClockSourceComponent = (props: {
         const settings = props.clock.config() as LooseObject;
         if (settings.time) {
             const duration = props.clock.duration();
-            if (props.clock.status() === ClockStatus.RESET) time = duration;
+            if (props.clock.status() === ClockStatus.UNCUED) time = duration;
             else if (settings.direction === ClockDirection.COUNTDOWN) {
                 if (time.greaterThan(duration, true))
                     time = time.subtract(duration, true).setOffset(Offset.END);

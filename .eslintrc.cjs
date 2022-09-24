@@ -6,7 +6,7 @@ module.exports = {
     parser: "@typescript-eslint/parser",
     parserOptions: {
         tsconfigRootDir: __dirname,
-        ecmaVersion: 2021,
+        ecmaVersion: 2022,
         sourceType: "module"
     },
     plugins: ["@typescript-eslint", "import", "eslint-plugin-tsdoc"],
@@ -25,8 +25,6 @@ module.exports = {
     extends: ["eslint:recommended", "prettier"],
     rules: {
         "tsdoc/syntax": "warn",
-        indent: ["error", 4],
-        quotes: ["warn", "double"],
         "@typescript-eslint/no-inferrable-types": [
             "error",
             {

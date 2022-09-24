@@ -5,15 +5,25 @@ import {
     CreateStructure
 } from "./sync/DataStructures.js";
 import { ClockDataCodec } from "./sync/ClockDataCodec.js";
-import { CurrentClockStateCodec } from "./sync/CurrentClockStateCodec.js";
+import { ClockCurrentStateCodec } from "./sync/ClockCurrentStateCodec.js";
 import { ClockConfigCodec } from "./sync/ClockConfigCodec.js";
-import { CreateClockCodec } from "./sync/CreateClockCodec.js";
+import { ClockCreateCodec } from "./sync/ClockCreateCodec.js";
+import { ClockIdentifierCodec } from "./io/ClockIdentiferCodec.js";
 
 export function registerCodecs(): void {
-    registerCodec("sync_clock_data", new ClockDataCodec());
+    registerCodec("sync_clock_data", ClockDataCodec);
     registerCodec("sync_clock_config", ClockConfigCodec);
-    registerCodec("sync_clock_current", CurrentClockStateCodec);
-    registerCodec("sync_clock_create", CreateClockCodec);
+    registerCodec("sync_clock_current", ClockCurrentStateCodec);
+    registerCodec("sync_clock_create", ClockCreateCodec);
+    registerCodec("io_clock_identifier", ClockIdentifierCodec);
 }
 
 export type { CurrentClockState, AdditionalData, CreateStructure };
+
+export {
+    ClockIdentifierCodec,
+    ClockDataCodec,
+    ClockConfigCodec,
+    ClockCurrentStateCodec,
+    ClockCreateCodec
+};

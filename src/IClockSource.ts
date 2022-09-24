@@ -9,7 +9,11 @@ export enum ControlBar {
     PLAY_PAUSE = "play_pause",
     PAUSE = "pause",
     STOP = "stop",
-    RESET = "reset",
+    CUE_PLAY = "cue_play",
+    CUE_PLAY_PAUSE = "cue_play_pause",
+    CUE = "cue",
+    RECUE = "recue",
+    UNCUE = "uncue",
     FORWARD = "forward",
     BACK = "back",
     POSITION = "position"
@@ -21,7 +25,8 @@ export enum ControlBar {
  */
 export enum ClockStatus {
     INVALID = "invalid",
-    RESET = "reset",
+    UNCUED = "uncued",
+    CUED = "cued",
     STOPPED = "stopped",
     PAUSED = "paused",
     RUNNING = "running"
@@ -117,6 +122,18 @@ export interface IClockSource<Settings = unknown> {
      */
     duration: () => SMPTE;
     /**
+     * Cues the clock to play and sets the status to {@link ClockStatus.CUED}
+     * Registers {@link _update} to start updating
+     * @returns if the operation took place
+     */
+    cue: () => Promise<boolean>;
+    /**
+     * Uncues the clock and set the status to {@link ClockStatus.UNCUED}
+     * Unregisters {@link _update} from updating
+     * @returns if the operation took place
+     */
+    uncue: () => Promise<boolean>;
+    /**
      * Starts the clock running and sets the status to {@link ClockStatus.RUNNING}
      * @returns if the operation took place
      */
@@ -132,10 +149,10 @@ export interface IClockSource<Settings = unknown> {
      */
     stop: (override: boolean) => Promise<boolean>;
     /**
-     * Stops the operation of the clock, Resets the clock to default state and sets the status to {@link ClockStatus.RESET}
+     * Stops the operation of the clock, Resets the clock to default state and sets the status to {@link ClockStatus.CUED}
      * @returns if the operation took place
      */
-    reset: (override: boolean) => Promise<boolean>;
+    recue: (override: boolean) => Promise<boolean>;
     /**
      * Sets the clock to a specific time
      * @returns if the operation took place
@@ -157,20 +174,21 @@ export interface IClockSource<Settings = unknown> {
     data: () => object;
     /**
      * Synchronises the current state of the clock
+     * Only used on the client
      * @param state - The new state
      * @internal
      */
-    _syncState: (state: CurrentClockState) => void;
+    _syncState?: (state: CurrentClockState) => void;
     /**
      * Synchronises additional data of the clock
+     * Only used on the client
      * @param data - {@link AdditionalData}
      * @internal
      */
-    _syncData: (data: AdditionalData) => void;
+    _syncData?: (data: AdditionalData) => void;
     /**
-     * Updates various functionallity of the clock
-     *
-     * Called automatically by the main update loop
+     * Updates the current state of the clock
+     * Once cued updates once per second
      * @internal
      */
     _update: () => Promise<void>;

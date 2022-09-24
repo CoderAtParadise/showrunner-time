@@ -6,7 +6,7 @@ import {
 import { IClockSource } from "../../IClockSource.js";
 import { AdditionalData } from "./DataStructures.js";
 
-export class ClockDataCodec implements Codec<IClockSource> {
+export const ClockDataCodec: Codec<IClockSource> = {
     serialize(obj: IClockSource): serializeTypes {
         const codec = getCodec(
             `sync_clock_data_${obj.identifier().type}`,
@@ -21,10 +21,10 @@ export class ClockDataCodec implements Codec<IClockSource> {
             controlBar: obj.controlBar(),
             ...data
         };
-    }
+    },
     deserialize(json: serializeTypes, obj?: IClockSource): IClockSource {
         if (!obj) throw Error("Failed to deserialize due to missing clock");
-        obj._syncData(json as AdditionalData);
+        if (obj._syncData) obj._syncData(json as AdditionalData);
         return obj;
     }
-}
+};

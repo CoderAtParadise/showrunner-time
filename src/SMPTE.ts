@@ -64,8 +64,8 @@ export class SMPTE {
                 this.mSeconds = -1;
                 this.mFrames = -1;
             } else {
-                const parts = (timecode).match(
-                    /^(\+|\-)?([012][0-9]):([0-9][0-9]):([0-9][0-9])(:|;|\\.)([0-9][0-9]|[0-9][0-9][0-9])$/
+                const parts = timecode.match(
+                    /^(\+|\-)?([012][0-9]):([0-9]{2}):([0-9]{2})(?:(:|;)([0-9]{2}))?$/
                 );
                 if (!parts) {
                     throw new Error(

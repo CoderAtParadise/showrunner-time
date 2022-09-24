@@ -6,16 +6,20 @@ import {
     ClockIdentifier
 } from "./IClockSource.js";
 import { FrameRate, SMPTE } from "./SMPTE.js";
+import { AsyncUtils } from "@coderatparadise/showrunner-network";
+import { IClockManager } from "./IClockManager.js";
+import { MessageClockCurrent } from "./ClockMessages.js";
 
 let initialized: IClockSource;
-const falseReturn = async () => Promise.resolve(false);
-const voidReturn = async () => Promise.resolve();
 
 /**
  * Implementation of {@link ClockSource} for System Time
  * @public
  */
-export function createSystemTimeClockSource(host: string): IClockSource {
+export function createSystemTimeClockSource(
+    host: string,
+    manager: IClockManager
+): IClockSource {
     if (initialized !== undefined) return initialized;
     else {
         initialized = {
@@ -58,20 +62,26 @@ export function createSystemTimeClockSource(host: string): IClockSource {
             duration(): SMPTE {
                 return new SMPTE();
             },
+            async cue(): Promise<boolean> {
+                return await AsyncUtils.booleanReturn(false);
+            },
+            async uncue(): Promise<boolean> {
+                return await AsyncUtils.booleanReturn(false);
+            },
             async play(): Promise<boolean> {
-                return await falseReturn();
+                return await AsyncUtils.booleanReturn(false);
             },
             async pause(): Promise<boolean> {
-                return await falseReturn();
+                return await AsyncUtils.booleanReturn(false);
             },
             async stop(): Promise<boolean> {
-                return await falseReturn();
+                return await AsyncUtils.booleanReturn(false);
             },
-            async reset(): Promise<boolean> {
-                return await falseReturn();
+            async recue(): Promise<boolean> {
+                return await AsyncUtils.booleanReturn(false);
             },
             async setTime(): Promise<boolean> {
-                return await falseReturn();
+                return await AsyncUtils.booleanReturn(false);
             },
             async updateConfig(): Promise<void> {
                 // NOOP
@@ -79,16 +89,15 @@ export function createSystemTimeClockSource(host: string): IClockSource {
             data(): object {
                 return {};
             },
-            _syncState(): void {
-                // NOOP
-            },
-            _syncData(): void {
-                // NOOP
-            },
             async _update(): Promise<void> {
-                return await voidReturn();
+                void manager.dispatch({
+                    type: MessageClockCurrent,
+                    handler: "event"
+                });
+                return await AsyncUtils.voidReturn();
             }
         };
+        manager.startUpdating(initialized._update);
     }
     return initialized;
 }

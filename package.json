@@ -2,45 +2,49 @@
     "name": "@coderatparadise/showrunner-time",
     "version": "0.2.0",
     "description": "Time library for showrunner modules",
-    "packageManager": "yarn@3.2.1",
+    "packageManager": "yarn@4.0.0-rc.18",
     "type": "module",
+    "main": "./lib/cjs/index.cjs",
     "files": [
-        "lib/**"
+        "lib"
     ],
     "exports": {
         ".": {
-            "types": "./lib/types/index.js",
+            "types": "./lib/types/index.d.ts",
             "import": "./lib/esm/index.js",
-            "require": "./lib/cjs/index.js"
+            "require": "./lib/cjs/index.cjs"
         },
-        "./*/*.js": {
-            "types": "./lib/types/*.js",
+        "./package.json": "./package.json",
+        "./**/*.js": {
+            "types": "./lib/types/*.d.ts",
             "import": "./lib/esm/*.js",
-            "require": "./lib/cjs/*.js"
+            "require": "./lib/cjs/*.cjs"
         },
         "./codec": {
-            "types": "./lib/types/codec/index.js",
+            "types": "./lib/types/codec/index.d.ts",
             "import": "./lib/esm/codec/index.js",
-            "require": "./lib/cjs/codec/index.js"
+            "require": "./lib/cjs/codec/index.cjs"
         },
-        "./codec/*.js": {
-            "types": "./lib/types/codec/*.js",
+        "./codec/**/*.js": {
+            "types": "./lib/types/codec/*.d.ts",
             "import": "./lib/esm/codec/*.js",
-            "require": "./lib/cjs/codec/*.js"
+            "require": "./lib/cjs/codec/*.cjs"
         },
         "./extension": {
-            "types": "./lib/types/extension/index.js",
+            "types": "./lib/types/extension/index.d.ts",
             "import": "./lib/esm/extension/index.js",
-            "require": "./lib/cjs/extension/index.js"
+            "require": "./lib/cjs/extension/index.cjs"
         },
         "./extension/**/*.js": {
-            "types": "./lib/types/extension/**/*.js",
+            "types": "./lib/types/extension/**/*.d.ts",
             "import": "./lib/esm/extension/**/*.js",
-            "require": "./lib/cjs/extension/**/*.js"
+            "require": "./lib/cjs/extension/**/*.cjs"
         }
     },
+    "types": "./lib/types/index.d.ts",
     "scripts": {
         "build": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && tsc -p tsconfig-declarations.json",
+        "rename": "node ./scripts/rename.cjs ./lib/cjs && node ./scripts/replace.cjs ./lib/cjs",
         "start": "node lib/index.js",
         "lint": "yarn eslint src/**/*.ts"
     },
@@ -54,6 +58,9 @@
         "url": "https://github.com/CoderAtParadise/showrunner-time/issues"
     },
     "homepage": "https://github.com/CoderAtParadise/showrunner-time#readme",
+    "resolutions": {
+        "@coderatparadise/showrunner-network": "E:/Dev/showrunner/network"
+    },
     "peerDependencies": {
         "@coderatparadise/showrunner-network": "^1.4",
         "@trpc/client": "^10",
