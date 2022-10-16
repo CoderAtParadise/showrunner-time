@@ -14,12 +14,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@coderatparadise/showrunner-network@file:../network::locator=%40coderatparadise%2Fshowrunner-time%40workspace%3A.":
+"@coderatparadise/showrunner-network@npm:^2.1.0":
   version: 2.1.0
-  resolution: "@coderatparadise/showrunner-network@file:../network#../network::hash=4a8331&locator=%40coderatparadise%2Fshowrunner-time%40workspace%3A."
+  resolution: "@coderatparadise/showrunner-network@npm:2.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.0%2F1afcc0055ba085b269080162960c51d51e50eb67"
   peerDependencies:
     "@trpc/server": ^10
-  checksum: 3d9b6b40277bfe99f0849fc0b21bba10e13a266102ed90c32310e4530f7dcf4cba6ca6b2805c9a986986fffe02d341c4ba31efb976888a553baba1e1f31073b4
+  checksum: 243558157c2ee1c841eee93029b31f3bd8995f5bc61de331bdf5e08fe5069576b0b08fc7cf8e2064552bfe1935f87c0491642d611bfd90adbb023d314c1e2d55
   languageName: node
   linkType: hard
 
@@ -28,8 +28,6 @@ __metadata:
   resolution: "@coderatparadise/showrunner-time@workspace:."
   dependencies:
     "@coderatparadise/showrunner-network": "npm:^2.1.0"
-    "@trpc/client": "npm:^10.0.0-proxy-beta.20"
-    "@trpc/server": "npm:^10.0.0-proxy-beta.20"
     "@types/eslint": "npm:^8.4.6"
     "@types/node": "npm:^18.11.0"
     "@types/prettier": "npm:^2.7.1"
@@ -50,8 +48,6 @@ __metadata:
     zod: "npm:^3.19.1"
   peerDependencies:
     "@coderatparadise/showrunner-network": ^2
-    "@trpc/client": ^10
-    "@trpc/server": ^10
     react: ^18
     react-dom: ^18
     zod: ^3
@@ -178,22 +174,6 @@ __metadata:
   dependencies:
     defer-to-connect: "npm:^2.0.0"
   checksum: d927951bccbbad4cb713af7378ad4d17b34e48725ea4641ad01f79b310564e3db2b173c4f81cb3b945dbf8b3dbcb4da7b8d0f2e754e79dc1b92c69a18ba0ac41
-  languageName: node
-  linkType: hard
-
-"@trpc/client@npm:^10.0.0-proxy-beta.20":
-  version: 10.0.0-proxy-beta.20
-  resolution: "@trpc/client@npm:10.0.0-proxy-beta.20"
-  peerDependencies:
-    "@trpc/server": 10.0.0-proxy-beta.20
-  checksum: f04f2f8b598b6e7eabf85dd0310d27286e7c4d5327aa61787e6a75986ede0bb4ceb68c737de856c03e21717008f42a71003617866fd4e75fe449e1b4dffff98e
-  languageName: node
-  linkType: hard
-
-"@trpc/server@npm:^10.0.0-proxy-beta.20":
-  version: 10.0.0-proxy-beta.20
-  resolution: "@trpc/server@npm:10.0.0-proxy-beta.20"
-  checksum: 916fc9d1d32e430e212a04a41d40d7a8a58a487e78b3c7ebdbec8c0d9f22fede999bce64aaa990a5e395e8d7155726ce04bb203ab3e4d40e6237e3f39c33d407
   languageName: node
   linkType: hard
 

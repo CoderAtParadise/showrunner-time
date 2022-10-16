@@ -26,9 +26,7 @@ const RAW_RUNTIME_STATE =
       [null, {\
         "packageLocation": "./",\
         "packageDependencies": [\
-          ["@coderatparadise/showrunner-network", "virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#file:../network#../network::hash=4a8331&locator=%40coderatparadise%2Fshowrunner-time%40workspace%3A."],\
-          ["@trpc/client", "virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#npm:10.0.0-proxy-beta.20"],\
-          ["@trpc/server", "npm:10.0.0-proxy-beta.20"],\
+          ["@coderatparadise/showrunner-network", "virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#npm:2.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.0%2F1afcc0055ba085b269080162960c51d51e50eb67"],\
           ["@types/eslint", "npm:8.4.6"],\
           ["@types/node", "npm:18.11.0"],\
           ["@types/prettier", "npm:2.7.1"],\
@@ -62,18 +60,18 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@coderatparadise/showrunner-network", [\
-      ["file:../network#../network::hash=4a8331&locator=%40coderatparadise%2Fshowrunner-time%40workspace%3A.", {\
-        "packageLocation": "../../../../C:/Users/dawn0/AppData/Local/Yarn/Berry/cache/@coderatparadise-showrunner-network-file-461c2bc7e7-9.zip/node_modules/@coderatparadise/showrunner-network/",\
+      ["npm:2.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.0%2F1afcc0055ba085b269080162960c51d51e50eb67", {\
+        "packageLocation": "../../../../C:/Users/dawn0/AppData/Local/Yarn/Berry/cache/@coderatparadise-showrunner-network-npm-2.1.0-ef27178e8b-9.zip/node_modules/@coderatparadise/showrunner-network/",\
         "packageDependencies": [\
-          ["@coderatparadise/showrunner-network", "file:../network#../network::hash=4a8331&locator=%40coderatparadise%2Fshowrunner-time%40workspace%3A."]\
+          ["@coderatparadise/showrunner-network", "npm:2.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.0%2F1afcc0055ba085b269080162960c51d51e50eb67"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#file:../network#../network::hash=4a8331&locator=%40coderatparadise%2Fshowrunner-time%40workspace%3A.", {\
-        "packageLocation": "./.yarn/__virtual__/@coderatparadise-showrunner-network-virtual-360b3b59f5/5/C:/Users/dawn0/AppData/Local/Yarn/Berry/cache/@coderatparadise-showrunner-network-file-461c2bc7e7-9.zip/node_modules/@coderatparadise/showrunner-network/",\
+      ["virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#npm:2.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.0%2F1afcc0055ba085b269080162960c51d51e50eb67", {\
+        "packageLocation": "./.yarn/__virtual__/@coderatparadise-showrunner-network-virtual-0228a4c634/5/C:/Users/dawn0/AppData/Local/Yarn/Berry/cache/@coderatparadise-showrunner-network-npm-2.1.0-ef27178e8b-9.zip/node_modules/@coderatparadise/showrunner-network/",\
         "packageDependencies": [\
-          ["@coderatparadise/showrunner-network", "virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#file:../network#../network::hash=4a8331&locator=%40coderatparadise%2Fshowrunner-time%40workspace%3A."],\
-          ["@trpc/server", "npm:10.0.0-proxy-beta.20"],\
+          ["@coderatparadise/showrunner-network", "virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#npm:2.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.0%2F1afcc0055ba085b269080162960c51d51e50eb67"],\
+          ["@trpc/server", null],\
           ["@types/trpc__server", null]\
         ],\
         "packagePeers": [\
@@ -88,9 +86,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["@coderatparadise/showrunner-time", "workspace:."],\
-          ["@coderatparadise/showrunner-network", "virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#file:../network#../network::hash=4a8331&locator=%40coderatparadise%2Fshowrunner-time%40workspace%3A."],\
-          ["@trpc/client", "virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#npm:10.0.0-proxy-beta.20"],\
-          ["@trpc/server", "npm:10.0.0-proxy-beta.20"],\
+          ["@coderatparadise/showrunner-network", "virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#npm:2.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.0%2F1afcc0055ba085b269080162960c51d51e50eb67"],\
           ["@types/eslint", "npm:8.4.6"],\
           ["@types/node", "npm:18.11.0"],\
           ["@types/prettier", "npm:2.7.1"],\
@@ -244,37 +240,6 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@szmarczak/http-timer", "npm:4.0.6"],\
           ["defer-to-connect", "npm:2.0.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@trpc/client", [\
-      ["npm:10.0.0-proxy-beta.20", {\
-        "packageLocation": "../../../../C:/Users/dawn0/AppData/Local/Yarn/Berry/cache/@trpc-client-npm-10.0.0-proxy-beta.20-0b4b43c54a-9.zip/node_modules/@trpc/client/",\
-        "packageDependencies": [\
-          ["@trpc/client", "npm:10.0.0-proxy-beta.20"]\
-        ],\
-        "linkType": "SOFT"\
-      }],\
-      ["virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#npm:10.0.0-proxy-beta.20", {\
-        "packageLocation": "./.yarn/__virtual__/@trpc-client-virtual-2b38b7d15b/5/C:/Users/dawn0/AppData/Local/Yarn/Berry/cache/@trpc-client-npm-10.0.0-proxy-beta.20-0b4b43c54a-9.zip/node_modules/@trpc/client/",\
-        "packageDependencies": [\
-          ["@trpc/client", "virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#npm:10.0.0-proxy-beta.20"],\
-          ["@trpc/server", "npm:10.0.0-proxy-beta.20"],\
-          ["@types/trpc__server", null]\
-        ],\
-        "packagePeers": [\
-          "@trpc/server",\
-          "@types/trpc__server"\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@trpc/server", [\
-      ["npm:10.0.0-proxy-beta.20", {\
-        "packageLocation": "../../../../C:/Users/dawn0/AppData/Local/Yarn/Berry/cache/@trpc-server-npm-10.0.0-proxy-beta.20-736069d828-9.zip/node_modules/@trpc/server/",\
-        "packageDependencies": [\
-          ["@trpc/server", "npm:10.0.0-proxy-beta.20"]\
         ],\
         "linkType": "HARD"\
       }]\
