@@ -1,16 +1,11 @@
-import {
-    Codec,
-    serializeTypes
-} from "@coderatparadise/showrunner-network/codec";
+import { Codec, serializeTypes } from "@coderatparadise/showrunner-network/codec";
 import { ClockIdentifier } from "../../IClockSource.js";
 
 export const ClockIdentifierCodec: Codec<ClockIdentifier> = {
     serialize(obj: ClockIdentifier): serializeTypes {
         return `${obj.service}:${obj.show}:${obj.session}:${obj.id}:${obj.type}`;
     },
-    deserialize(
-        json: serializeTypes
-    ): ClockIdentifier {
+    deserialize(json: serializeTypes): ClockIdentifier {
         const split: string[] = (json as string).split(":");
         return {
             service: split[0],
@@ -20,4 +15,4 @@ export const ClockIdentifierCodec: Codec<ClockIdentifier> = {
             type: split[4]
         };
     }
-}
+};

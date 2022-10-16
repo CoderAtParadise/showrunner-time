@@ -18,7 +18,6 @@ export const ClockDataCodec: Codec<IClockSource> = {
             duration: obj.duration().toString(),
             frameRate: obj.frameRate(),
             name: obj.name(),
-            controlBar: obj.controlBar(),
             ...data
         };
     },

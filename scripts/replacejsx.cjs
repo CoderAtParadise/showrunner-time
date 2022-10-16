@@ -18,10 +18,9 @@ const main = async () => {
     files.forEach(async (file) => {
         const fd = await readFile(file, "utf-8");
         const quotes = /"(.*?)"/g;
-        const res = fd.replace(
-            quotes,
-            (_, g) => `"${g.replace(".js", ".cjs")}"`
-        );
+        const res = fd.replace(quotes, (_, g) => {
+            return `"${g.replace(".jsx", ".js")}"`;
+        });
         await writeFile(file, res, "utf-8");
     });
 };

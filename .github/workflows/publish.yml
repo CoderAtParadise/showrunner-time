@@ -24,10 +24,11 @@ jobs:
         run: |
             yarn config set npmScopes.coderatparadise.npmAuthToken $NODE_AUTH_TOKEN
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NODE_AUTH_TOKEN: ${{secrets.ACTIONS_RUNNER}}
       - run: yarn
       - run: yarn lint
       - run: yarn build
+      - run: yarn rename
       - run: yarn npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}

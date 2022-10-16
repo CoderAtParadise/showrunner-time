@@ -18,4 +18,4 @@ export type AdditionalData = {
 export type CreateStructure = {
     name: string;
     type: string;
-}
+};

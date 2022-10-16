@@ -106,12 +106,6 @@ export interface IClockSource<Settings = unknown> {
      */
     name: () => string;
     /**
-     * Returns the allowed control bar options
-     * @see {@link ControlBar} for all valid options
-     * @returns An array of all value control bar options
-     */
-    controlBar: () => ControlBar[];
-    /**
      * Returns the current time of the clock
      * @returns The current time of the source
      */

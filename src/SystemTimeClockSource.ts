@@ -3,12 +3,14 @@ import {
     IClockSource,
     ClockStatus,
     ControlBar,
-    ClockIdentifier
+    ClockIdentifier,
+    ClockLookup
 } from "./IClockSource.js";
 import { FrameRate, SMPTE } from "./SMPTE.js";
 import { AsyncUtils } from "@coderatparadise/showrunner-network";
 import { IClockManager } from "./IClockManager.js";
 import { MessageClockCurrent } from "./ClockMessages.js";
+import { ClockIdentifierCodec } from "./codec/index.js";
 
 let initialized: IClockSource;
 
@@ -27,7 +29,7 @@ export function createSystemTimeClockSource(
                 return {
                     service: host,
                     show: "system",
-                    session: "system",
+                    session: manager.id(),
                     id: "time",
                     type: "sync"
                 };
@@ -52,9 +54,6 @@ export function createSystemTimeClockSource(
             },
             name(): string {
                 return this.config().name;
-            },
-            controlBar(): ControlBar[] {
-                return [];
             },
             current(): SMPTE {
                 return new SMPTE(new Date(), FrameRate.F1000);
@@ -97,7 +96,10 @@ export function createSystemTimeClockSource(
                 return await AsyncUtils.voidReturn();
             }
         };
-        manager.startUpdating(initialized._update);
+        manager.startUpdating(
+            ClockIdentifierCodec.serialize(initialized.identifier()) as ClockLookup,
+            initialized._update
+        );
     }
     return initialized;
 }

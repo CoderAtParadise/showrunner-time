@@ -56,7 +56,7 @@ export class SMPTE {
         if (!this.validateFrameRate()) throw new Error("Unsupported framerate");
         this.mDropFrame = dropFrame;
         this.mOffset = offset;
-        this.mFrameCount = 0;
+        this.mFrameCount = -1;
         if (typeof timecode === "string") {
             if (timecode === "--:--:--:--") {
                 this.mHours = -1;
@@ -65,9 +65,11 @@ export class SMPTE {
                 this.mFrames = -1;
             } else {
                 const parts = timecode.match(
-                    /^(\+|\-)?([012][0-9]):([0-9]{2}):([0-9]{2})(?:(:|;)([0-9]{2}))?$/
+                    /^(\+|\-)?([012][0-9]):([0-9]{2}):([0-9]{2})(?:(:|;)([0-9]{2,3}))?$/
                 );
                 if (!parts) {
+                    console.trace();
+                    console.log(timecode);
                     throw new Error(
                         "Timecode string expected as (+-)HH:MM:SS:FF or (+-)HH:MM:SS;FF"
                     );
@@ -214,7 +216,7 @@ export class SMPTE {
     }
 
     toString(): string {
-        if (this.frameCount() === -1) return "--:--:--";
+        if (this.frameCount() === -1) return "--:--:--:--";
         return `${this.mOffset}${zeroPad(this.hours(), 2)}:${zeroPad(
             this.minutes(),
             2

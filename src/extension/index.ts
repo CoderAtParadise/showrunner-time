@@ -1,4 +1,5 @@
-import { ClockSourceComponent } from "./components/ClockSourceComponent.jsx";
+import { DisplayTimeComponent } from "./components/DisplayTimeComponent.jsx";
+// import { ClientClockSourceComponent } from "./components/ClientClockSourceComponent.jsx";
 import { LooseObject } from "./LooseObject.js";
 
-export { ClockSourceComponent,LooseObject };
+export { DisplayTimeComponent, LooseObject };

@@ -9,8 +9,7 @@ import {
 } from "./IClockSource.js";
 import { ClockDirection, ClockBehaviour } from "./ClockSettings.js";
 import { zeroPad } from "./ZeroPad.js";
-import { IClockManager } from "./IClockManager.js";
-import { getClockRouter } from "./ClockTRPCRouter.js";
+import { IClockManager,ControlMode } from "./IClockManager.js";
 import { createSystemTimeClockSource } from "./SystemTimeClockSource.js";
 import {
     MessageClockCue,
@@ -29,7 +28,7 @@ import {
     MessageClockList,
     MessageClockRemove
 } from "./ClockMessages.js";
-import { ClockIdentifierCodec } from "./codec/index.js";
+import * as Codec from "./codec/index.js";
 export type { BaseClockConfig, ClockLookup, ClockIdentifier };
 
 export {
@@ -42,11 +41,11 @@ export {
     ClockDirection,
     ClockBehaviour,
     IClockManager,
+    ControlMode,
     zeroPad,
-    getClockRouter,
     createSystemTimeClockSource,
     MessageClockCue,
-    MessageClockUncue as MessageClockUnCue,
+    MessageClockUncue,
     MessageClockPlay,
     MessageClockPause,
     MessageClockStop,
@@ -60,5 +59,5 @@ export {
     MessageClockData,
     MessageClockList,
     MessageClockRemove,
-    ClockIdentifierCodec
+    Codec
 };
