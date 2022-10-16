@@ -78,7 +78,7 @@
         }
     },
     "devDependencies": {
-        "@coderatparadise/showrunner-network": "^2.1.0",
+        "@coderatparadise/showrunner-network": "^2.1.1",
         "@types/eslint": "^8.4.6",
         "@types/node": "^18.11.0",
         "@types/prettier": "^2.7.1",

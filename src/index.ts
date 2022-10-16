@@ -1,6 +1,5 @@
 import { FrameRate, Offset, SMPTE } from "./SMPTE.js";
 import {
-    ControlBar,
     ClockStatus,
     BaseClockConfig,
     ClockLookup,
@@ -35,7 +34,6 @@ export {
     FrameRate,
     Offset,
     SMPTE,
-    ControlBar,
     ClockStatus,
     IClockSource,
     ClockDirection,

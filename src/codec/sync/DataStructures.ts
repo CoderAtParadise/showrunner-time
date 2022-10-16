@@ -1,5 +1,4 @@
-import { ClockStatus, ControlBar } from "../../IClockSource.js";
-
+import { ClockStatus } from "../../IClockSource.js";
 export type CurrentClockState = {
     time: string;
     status: ClockStatus;
@@ -12,7 +11,6 @@ export type AdditionalData = {
     duration: string;
     frameRate: number;
     name: string;
-    controlBar: ControlBar[];
 };
 
 export type CreateStructure = {

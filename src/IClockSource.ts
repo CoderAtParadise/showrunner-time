@@ -2,24 +2,6 @@ import { AdditionalData, CurrentClockState } from "./codec/index.js";
 import { FrameRate, SMPTE } from "./SMPTE.js";
 
 /**
- * Enum defining all possible control bar options
- */
-export enum ControlBar {
-    PLAY = "play",
-    PLAY_PAUSE = "play_pause",
-    PAUSE = "pause",
-    STOP = "stop",
-    CUE_PLAY = "cue_play",
-    CUE_PLAY_PAUSE = "cue_play_pause",
-    CUE = "cue",
-    RECUE = "recue",
-    UNCUE = "uncue",
-    FORWARD = "forward",
-    BACK = "back",
-    POSITION = "position"
-}
-
-/**
  * Enum defining all possible status's that of an {@link ClockSource}
  * @public
  */

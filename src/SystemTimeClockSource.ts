@@ -2,7 +2,6 @@ import {
     BaseClockConfig,
     IClockSource,
     ClockStatus,
-    ControlBar,
     ClockIdentifier,
     ClockLookup
 } from "./IClockSource.js";

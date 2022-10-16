@@ -26,7 +26,7 @@ const RAW_RUNTIME_STATE =
       [null, {\
         "packageLocation": "./",\
         "packageDependencies": [\
-          ["@coderatparadise/showrunner-network", "virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#npm:2.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.0%2F1afcc0055ba085b269080162960c51d51e50eb67"],\
+          ["@coderatparadise/showrunner-network", "npm:2.1.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.1%2F5815909b95f9cc1e57b6de82ccf245e888d61e7a"],\
           ["@types/eslint", "npm:8.4.6"],\
           ["@types/node", "npm:18.11.0"],\
           ["@types/prettier", "npm:2.7.1"],\
@@ -60,23 +60,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@coderatparadise/showrunner-network", [\
-      ["npm:2.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.0%2F1afcc0055ba085b269080162960c51d51e50eb67", {\
-        "packageLocation": "../../../../C:/Users/dawn0/AppData/Local/Yarn/Berry/cache/@coderatparadise-showrunner-network-npm-2.1.0-ef27178e8b-9.zip/node_modules/@coderatparadise/showrunner-network/",\
+      ["npm:2.1.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.1%2F5815909b95f9cc1e57b6de82ccf245e888d61e7a", {\
+        "packageLocation": "../../../../C:/Users/dawn0/AppData/Local/Yarn/Berry/cache/@coderatparadise-showrunner-network-npm-2.1.1-698196f5c6-9.zip/node_modules/@coderatparadise/showrunner-network/",\
         "packageDependencies": [\
-          ["@coderatparadise/showrunner-network", "npm:2.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.0%2F1afcc0055ba085b269080162960c51d51e50eb67"]\
-        ],\
-        "linkType": "SOFT"\
-      }],\
-      ["virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#npm:2.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.0%2F1afcc0055ba085b269080162960c51d51e50eb67", {\
-        "packageLocation": "./.yarn/__virtual__/@coderatparadise-showrunner-network-virtual-0228a4c634/5/C:/Users/dawn0/AppData/Local/Yarn/Berry/cache/@coderatparadise-showrunner-network-npm-2.1.0-ef27178e8b-9.zip/node_modules/@coderatparadise/showrunner-network/",\
-        "packageDependencies": [\
-          ["@coderatparadise/showrunner-network", "virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#npm:2.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.0%2F1afcc0055ba085b269080162960c51d51e50eb67"],\
-          ["@trpc/server", null],\
-          ["@types/trpc__server", null]\
-        ],\
-        "packagePeers": [\
-          "@trpc/server",\
-          "@types/trpc__server"\
+          ["@coderatparadise/showrunner-network", "npm:2.1.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.1%2F5815909b95f9cc1e57b6de82ccf245e888d61e7a"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -86,7 +73,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["@coderatparadise/showrunner-time", "workspace:."],\
-          ["@coderatparadise/showrunner-network", "virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#npm:2.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.0%2F1afcc0055ba085b269080162960c51d51e50eb67"],\
+          ["@coderatparadise/showrunner-network", "npm:2.1.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.1%2F5815909b95f9cc1e57b6de82ccf245e888d61e7a"],\
           ["@types/eslint", "npm:8.4.6"],\
           ["@types/node", "npm:18.11.0"],\
           ["@types/prettier", "npm:2.7.1"],\

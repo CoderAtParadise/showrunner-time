@@ -24,7 +24,7 @@ jobs:
         run: |
             yarn config set npmScopes.coderatparadise.npmAuthToken $NODE_AUTH_TOKEN
         env:
-          NODE_AUTH_TOKEN: ${{secrets.ACTIONS_RUNNER}}
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - run: yarn
       - run: yarn lint
       - run: yarn build

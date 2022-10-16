@@ -14,12 +14,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@coderatparadise/showrunner-network@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "@coderatparadise/showrunner-network@npm:2.1.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.0%2F1afcc0055ba085b269080162960c51d51e50eb67"
-  peerDependencies:
-    "@trpc/server": ^10
-  checksum: 243558157c2ee1c841eee93029b31f3bd8995f5bc61de331bdf5e08fe5069576b0b08fc7cf8e2064552bfe1935f87c0491642d611bfd90adbb023d314c1e2d55
+"@coderatparadise/showrunner-network@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "@coderatparadise/showrunner-network@npm:2.1.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.1%2F5815909b95f9cc1e57b6de82ccf245e888d61e7a"
+  checksum: 185f0040e0233484a6a8ab0bdc1a0f16d0305f2cb281e15fc0db9b5dab6da2c528af2fd9970a0791aa21a09bcbb4875648bb28c73a8011c1e48f5a2f4aa0378b
   languageName: node
   linkType: hard
 
@@ -27,7 +25,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@coderatparadise/showrunner-time@workspace:."
   dependencies:
-    "@coderatparadise/showrunner-network": "npm:^2.1.0"
+    "@coderatparadise/showrunner-network": "npm:^2.1.1"
     "@types/eslint": "npm:^8.4.6"
     "@types/node": "npm:^18.11.0"
     "@types/prettier": "npm:^2.7.1"
