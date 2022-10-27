@@ -11,12 +11,12 @@ export const ClockDataCodec: Codec<IClockSource> = {
         const codec = getCodec(
             `sync_clock_data_${obj.identifier().type}`);
         let data = {};
-        if (codec !== undefined) data = codec.serialize(obj) as object;
+        if (codec !== undefined) data = codec.serialize(obj.data()) as object;
         return {
             duration: obj.duration().toString(),
             frameRate: obj.frameRate(),
             name: obj.name(),
-            ...data
+            data: data
         };
     },
     deserialize(json: serializeTypes, obj?: IClockSource): IClockSource {
