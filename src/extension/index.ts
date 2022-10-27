@@ -1,5 +1,5 @@
-import { DisplayTimeComponent } from "./components/DisplayTimeComponent.jsx";
-// import { ClientClockSourceComponent } from "./components/ClientClockSourceComponent.jsx";
+import { CurrentDurationComponent } from "./components/time/CurrentDurationComponent.js";
+import { SMPTEComponent } from "./components/time/SMPTEComponent.js";
 import { LooseObject } from "./LooseObject.js";
 
-export { DisplayTimeComponent, LooseObject };
+export { CurrentDurationComponent, SMPTEComponent, LooseObject };

@@ -26,7 +26,7 @@ const RAW_RUNTIME_STATE =
       [null, {\
         "packageLocation": "./",\
         "packageDependencies": [\
-          ["@coderatparadise/showrunner-network", "npm:2.1.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.1%2F5815909b95f9cc1e57b6de82ccf245e888d61e7a"],\
+          ["@coderatparadise/showrunner-network", "npm:2.1.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.2%2F5bedede53fa299919e653ebbfc77ff7fcd88ee6a"],\
           ["@types/eslint", "npm:8.4.6"],\
           ["@types/node", "npm:18.11.0"],\
           ["@types/prettier", "npm:2.7.1"],\
@@ -60,10 +60,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@coderatparadise/showrunner-network", [\
-      ["npm:2.1.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.1%2F5815909b95f9cc1e57b6de82ccf245e888d61e7a", {\
-        "packageLocation": "../../../../C:/Users/dawn0/AppData/Local/Yarn/Berry/cache/@coderatparadise-showrunner-network-npm-2.1.1-698196f5c6-9.zip/node_modules/@coderatparadise/showrunner-network/",\
+      ["npm:2.1.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.2%2F5bedede53fa299919e653ebbfc77ff7fcd88ee6a", {\
+        "packageLocation": "../../../../C:/Users/dawn0/AppData/Local/Yarn/Berry/cache/@coderatparadise-showrunner-network-npm-2.1.2-5e68dbf6c8-9.zip/node_modules/@coderatparadise/showrunner-network/",\
         "packageDependencies": [\
-          ["@coderatparadise/showrunner-network", "npm:2.1.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.1%2F5815909b95f9cc1e57b6de82ccf245e888d61e7a"]\
+          ["@coderatparadise/showrunner-network", "npm:2.1.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.2%2F5bedede53fa299919e653ebbfc77ff7fcd88ee6a"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -73,7 +73,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["@coderatparadise/showrunner-time", "workspace:."],\
-          ["@coderatparadise/showrunner-network", "npm:2.1.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.1%2F5815909b95f9cc1e57b6de82ccf245e888d61e7a"],\
+          ["@coderatparadise/showrunner-network", "npm:2.1.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40CoderAtParadise%2Fshowrunner-network%2F2.1.2%2F5bedede53fa299919e653ebbfc77ff7fcd88ee6a"],\
           ["@types/eslint", "npm:8.4.6"],\
           ["@types/node", "npm:18.11.0"],\
           ["@types/prettier", "npm:2.7.1"],\

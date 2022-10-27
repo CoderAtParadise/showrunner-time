@@ -9,7 +9,7 @@ import { CreateStructure } from "./DataStructures.js";
 export const ClockCreateCodec: Codec<CreateStructure & unknown, IClockSource> =
     {
         serialize(obj: CreateStructure & unknown): serializeTypes {
-            const codec = getCodec(`sync_clock_create_${obj.type}`, false);
+            const codec = getCodec(`sync_clock_create_${obj.type}`);
             if (codec === undefined)
                 throw Error(
                     `Failed to serialize clock creation data: ${obj.type}:${obj.name}`
@@ -23,8 +23,7 @@ export const ClockCreateCodec: Codec<CreateStructure & unknown, IClockSource> =
         },
         deserialize(json: serializeTypes): IClockSource<unknown> {
             const codec = getCodec(
-                `sync_clock_create_${(json as CreateStructure).type}`,
-                false
+                `sync_clock_create_${(json as CreateStructure).type}`
             );
             if (codec === undefined)
                 throw Error(
