@@ -2,18 +2,9 @@ import { IDispatcher } from "@coderatparadise/showrunner-network";
 import { ClockLookup, IClockSource } from "./IClockSource.js";
 import { SMPTE } from "./SMPTE.js";
 
-export enum ControlMode {
-    Rehearsal = "rehearsal",
-    Playback = "playback",
-    Automation = "automation",
-  }
-  
-
 export interface IClockManager<T = unknown> extends IDispatcher {
     id: () => string;
     name: () => string;
-    controlMode: () => ControlMode;
-    setControlMode: (mode:ControlMode) => Promise<boolean>;
     cue: (id: ClockLookup) => Promise<boolean>;
     uncue: (id: ClockLookup) => Promise<boolean>;
     play: (id: ClockLookup) => Promise<boolean>;
@@ -26,7 +17,10 @@ export interface IClockManager<T = unknown> extends IDispatcher {
     //eslint-disable-next-line @typescript-eslint/no-explicit-any
     add: (clock: IClockSource<any>) => boolean;
     remove: (id: ClockLookup) => boolean;
-    startUpdating: (id:ClockLookup,updateFunction: () => Promise<void>) => void;
-    stopUpdating: (id:ClockLookup) => void;
+    startUpdating: (
+        id: ClockLookup,
+        updateFunction: () => Promise<void>
+    ) => void;
+    stopUpdating: (id: ClockLookup) => void;
     update: () => void;
 }

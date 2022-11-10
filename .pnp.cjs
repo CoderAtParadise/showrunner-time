@@ -43,8 +43,7 @@ const RAW_RUNTIME_STATE =
           ["prettier", "npm:2.7.1"],\
           ["react", "npm:18.2.0"],\
           ["react-dom", "virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#npm:18.2.0"],\
-          ["typescript", "patch:typescript@npm%3A4.8.4#optional!builtin<compat/typescript>::version=4.8.4&hash=701156"],\
-          ["zod", "npm:3.19.1"]\
+          ["typescript", "patch:typescript@npm%3A4.8.4#optional!builtin<compat/typescript>::version=4.8.4&hash=701156"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -90,8 +89,7 @@ const RAW_RUNTIME_STATE =
           ["prettier", "npm:2.7.1"],\
           ["react", "npm:18.2.0"],\
           ["react-dom", "virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#npm:18.2.0"],\
-          ["typescript", "patch:typescript@npm%3A4.8.4#optional!builtin<compat/typescript>::version=4.8.4&hash=701156"],\
-          ["zod", "npm:3.19.1"]\
+          ["typescript", "patch:typescript@npm%3A4.8.4#optional!builtin<compat/typescript>::version=4.8.4&hash=701156"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -3469,15 +3467,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../../C:/Users/dawn0/AppData/Local/Yarn/Berry/cache/yocto-queue-npm-0.1.0-c6c9a7db29-9.zip/node_modules/yocto-queue/",\
         "packageDependencies": [\
           ["yocto-queue", "npm:0.1.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["zod", [\
-      ["npm:3.19.1", {\
-        "packageLocation": "../../../../C:/Users/dawn0/AppData/Local/Yarn/Berry/cache/zod-npm-3.19.1-5084a5dfc9-9.zip/node_modules/zod/",\
-        "packageDependencies": [\
-          ["zod", "npm:3.19.1"]\
         ],\
         "linkType": "HARD"\
       }]\
