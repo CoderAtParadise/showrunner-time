@@ -8,7 +8,7 @@ import {
 } from "./IClockSource.js";
 import { ClockDirection, ClockBehaviour } from "./ClockSettings.js";
 import { zeroPad } from "./ZeroPad.js";
-import { IClockManager,ControlMode } from "./IClockManager.js";
+import { IClockManager } from "./IClockManager.js";
 import { createSystemTimeClockSource } from "./SystemTimeClockSource.js";
 import {
     MessageClockCue,
@@ -39,7 +39,6 @@ export {
     ClockDirection,
     ClockBehaviour,
     IClockManager,
-    ControlMode,
     zeroPad,
     createSystemTimeClockSource,
     MessageClockCue,
