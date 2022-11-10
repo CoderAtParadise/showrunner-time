@@ -135,6 +135,11 @@ export class SMPTE {
         this.validate();
     }
 
+    bound(bound: { lower: SMPTE; upper: SMPTE }): SMPTE {
+        this.mBound = bound;
+        return this;
+    }
+
     greaterThan(other: SMPTE, ignoreFrames: boolean = false): boolean {
         if (ignoreFrames) {
             return (
@@ -187,31 +192,59 @@ export class SMPTE {
 
     add(other: SMPTE, ignoreFrames: boolean = false): SMPTE {
         if (ignoreFrames) {
-            return new SMPTE(
+            const res = new SMPTE(
                 this.valueOfExcludeFrames() +
                     this.convert(other).valueOfExcludeFrames(),
                 this.frameRate()
             );
+            if (
+                this.mBound &&
+                (res.lessThan(this.mBound.lower, true) ||
+                    res.greaterThan(this.mBound.upper, true))
+            )
+                return this.mBound.upper;
+            return res;
         } else {
-            return new SMPTE(
+            const res = new SMPTE(
                 this.valueOf() + this.convert(other).valueOf(),
                 this.frameRate()
             );
+            if (
+                this.mBound &&
+                (res.lessThan(this.mBound.lower) ||
+                    res.greaterThan(this.mBound.upper))
+            )
+                return this.mBound.upper;
+            return res;
         }
     }
 
     subtract(other: SMPTE, ignoreFrames: boolean = false): SMPTE {
         if (ignoreFrames) {
-            return new SMPTE(
+            const res = new SMPTE(
                 this.valueOfExcludeFrames() -
                     this.convert(other).valueOfExcludeFrames(),
                 this.frameRate()
             );
+            if (
+                this.mBound &&
+                (res.lessThan(this.mBound.lower, true) ||
+                    res.greaterThan(this.mBound.upper, true))
+            )
+                return this.mBound.lower;
+            return res;
         } else {
-            return new SMPTE(
+            const res = new SMPTE(
                 this.valueOf() - this.convert(other).valueOf(),
                 this.frameRate()
             );
+            if (
+                this.mBound &&
+                (res.lessThan(this.mBound.lower) ||
+                    res.greaterThan(this.mBound.upper))
+            )
+                return this.mBound.lower;
+            return res;
         }
     }
 
@@ -385,6 +418,7 @@ export class SMPTE {
     private mDropFrame: boolean;
     private mOffset: Offset;
     private mFrameCount: number;
+    private mBound: { lower: SMPTE; upper: SMPTE } | undefined;
 }
 
 export const INVALID: SMPTE = new SMPTE();
