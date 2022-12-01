@@ -32,6 +32,7 @@ const RAW_RUNTIME_STATE =
           ["@types/prettier", "npm:2.7.1"],\
           ["@types/react", "npm:18.0.21"],\
           ["@types/react-dom", "npm:18.0.6"],\
+          ["@types/uuid", "npm:8.3.4"],\
           ["@typescript-eslint/eslint-plugin", "virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#npm:5.40.0"],\
           ["@typescript-eslint/parser", "virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#npm:5.40.0"],\
           ["@yarnpkg/sdks", "npm:3.0.0-rc.25"],\
@@ -43,7 +44,8 @@ const RAW_RUNTIME_STATE =
           ["prettier", "npm:2.7.1"],\
           ["react", "npm:18.2.0"],\
           ["react-dom", "virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#npm:18.2.0"],\
-          ["typescript", "patch:typescript@npm%3A4.8.4#optional!builtin<compat/typescript>::version=4.8.4&hash=701156"]\
+          ["typescript", "patch:typescript@npm%3A4.8.4#optional!builtin<compat/typescript>::version=4.8.4&hash=701156"],\
+          ["uuid", "npm:9.0.0"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -78,6 +80,7 @@ const RAW_RUNTIME_STATE =
           ["@types/prettier", "npm:2.7.1"],\
           ["@types/react", "npm:18.0.21"],\
           ["@types/react-dom", "npm:18.0.6"],\
+          ["@types/uuid", "npm:8.3.4"],\
           ["@typescript-eslint/eslint-plugin", "virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#npm:5.40.0"],\
           ["@typescript-eslint/parser", "virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#npm:5.40.0"],\
           ["@yarnpkg/sdks", "npm:3.0.0-rc.25"],\
@@ -89,7 +92,8 @@ const RAW_RUNTIME_STATE =
           ["prettier", "npm:2.7.1"],\
           ["react", "npm:18.2.0"],\
           ["react-dom", "virtual:c6eae26dcfcd7a647f74afe320c8cc54212ea2151e10cd6aac75be0fa75d6f2e23d9c490c3a597f0de99c4f0b1997bf25e6cfe32cf1e552fd3027f075c7018e3#npm:18.2.0"],\
-          ["typescript", "patch:typescript@npm%3A4.8.4#optional!builtin<compat/typescript>::version=4.8.4&hash=701156"]\
+          ["typescript", "patch:typescript@npm%3A4.8.4#optional!builtin<compat/typescript>::version=4.8.4&hash=701156"],\
+          ["uuid", "npm:9.0.0"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -416,6 +420,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../../C:/Users/dawn0/AppData/Local/Yarn/Berry/cache/@types-treeify-npm-1.0.0-b5e04e9cd3-9.zip/node_modules/@types/treeify/",\
         "packageDependencies": [\
           ["@types/treeify", "npm:1.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@types/uuid", [\
+      ["npm:8.3.4", {\
+        "packageLocation": "../../../../C:/Users/dawn0/AppData/Local/Yarn/Berry/cache/@types-uuid-npm-8.3.4-7547f4402c-9.zip/node_modules/@types/uuid/",\
+        "packageDependencies": [\
+          ["@types/uuid", "npm:8.3.4"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -3407,6 +3420,15 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["uri-js", "npm:4.4.1"],\
           ["punycode", "npm:2.1.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["uuid", [\
+      ["npm:9.0.0", {\
+        "packageLocation": "../../../../C:/Users/dawn0/AppData/Local/Yarn/Berry/cache/uuid-npm-9.0.0-46c41e3e43-9.zip/node_modules/uuid/",\
+        "packageDependencies": [\
+          ["uuid", "npm:9.0.0"]\
         ],\
         "linkType": "HARD"\
       }]\

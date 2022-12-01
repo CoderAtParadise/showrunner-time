@@ -29,3 +29,9 @@ export const MessageClockCreate: MessageType = "clock:create";
 export const MessageClockRemove: MessageType = "clock:remove";
 
 export const MessageClockCommand: MessageType = "clock:command";
+
+export const MessageClockChapter: MessageType = "clock:chapter";
+
+export const MessageClockAddChapter: MessageType = "clock:addchapter";
+
+export const MessageClockRemoveChapter: MessageType = "clock:removechapter";

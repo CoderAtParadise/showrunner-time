@@ -8,7 +8,7 @@ import { BaseClockConfig, IClockSource } from "../../IClockSource.js";
 export const ClockConfigCodec: Codec<IClockSource> = {
     serialize(obj: IClockSource): serializeTypes {
         const codec = getCodec(
-            `sync_clock_config_${obj.identifier().type}`
+            `sync_clock_config_${obj.identifier().type()}`
         );
         let config = {};
         if (codec !== undefined) config = codec.serialize(obj) as object;

@@ -1,26 +1,32 @@
 import { IDispatcher } from "@coderatparadise/showrunner-network";
-import { ClockLookup, IClockSource } from "./IClockSource.js";
+import { IClockSource } from "./IClockSource.js";
+import { ClockIdentifier, ClockLookup } from "./identifier/ClockIdentifier.js";
+import { ManagerIdentifier } from "./identifier/ManagerIdentifier.js";
 import { SMPTE } from "./SMPTE.js";
 
 export interface IClockManager<T = unknown> extends IDispatcher {
-    id: () => string;
+    identifier: () => ManagerIdentifier;
     name: () => string;
-    cue: (id: ClockLookup) => Promise<boolean>;
-    uncue: (id: ClockLookup) => Promise<boolean>;
-    play: (id: ClockLookup) => Promise<boolean>;
-    pause: (id: ClockLookup, override: boolean) => Promise<boolean>;
-    stop: (id: ClockLookup, override: boolean) => Promise<boolean>;
-    recue: (id: ClockLookup, override: boolean) => Promise<boolean>;
-    setTime: (id: ClockLookup, time: SMPTE) => Promise<boolean>;
-    request: (id: ClockLookup) => IClockSource<T> | undefined;
+    cue: (id: ClockIdentifier) => Promise<boolean>;
+    uncue: (id: ClockIdentifier) => Promise<boolean>;
+    play: (id: ClockIdentifier) => Promise<boolean>;
+    pause: (id: ClockIdentifier, override: boolean) => Promise<boolean>;
+    stop: (id: ClockIdentifier, override: boolean) => Promise<boolean>;
+    recue: (id: ClockIdentifier, override: boolean) => Promise<boolean>;
+    setTime: (id: ClockIdentifier, time: SMPTE) => Promise<boolean>;
+    request: (id: ClockIdentifier) => IClockSource<T> | undefined;
+    chapters: (id: ClockIdentifier) => Promise<ClockIdentifier[]>;
+    addChapter: (id: ClockIdentifier, chapter: ClockIdentifier) => Promise<boolean>;
+    removeChapter: (id: ClockIdentifier, chapter: ClockIdentifier) => Promise<boolean>;
     list: (filter: string | string[]) => ClockLookup[];
     //eslint-disable-next-line @typescript-eslint/no-explicit-any
     add: (clock: IClockSource<any>) => boolean;
     remove: (id: ClockLookup) => boolean;
     startUpdating: (
-        id: ClockLookup,
+        id: ClockIdentifier,
         updateFunction: () => Promise<void>
     ) => void;
-    stopUpdating: (id: ClockLookup) => void;
+    stopUpdating: (id: ClockIdentifier) => void;
     update: () => void;
+    _sortChapters?: (id:ClockIdentifier) => void;
 }

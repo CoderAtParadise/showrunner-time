@@ -8,7 +8,7 @@ import { CurrentClockState } from "./DataStructures.js";
 export const ClockCurrentStateCodec: Codec<IClockSource> = {
     serialize(obj: IClockSource): serializeTypes {
         return {
-            time: obj.current().toString(),
+            time: obj.current(),
             status: obj.status(),
             overrun: obj.isOverrun(),
             incorrectFrameRate: obj.hasIncorrectFrameRate()

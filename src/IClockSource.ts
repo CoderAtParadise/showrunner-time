@@ -1,4 +1,5 @@
 import { AdditionalData, CurrentClockState } from "./codec/index.js";
+import { ClockIdentifier } from "./identifier/ClockIdentifier.js";
 import { FrameRate, SMPTE } from "./SMPTE.js";
 
 /**
@@ -21,23 +22,6 @@ export enum ClockStatus {
 export type BaseClockConfig = {
     name: string;
     blackList?: string[];
-};
-/**
- * Type used for looup
- * @public
- */
-export type ClockLookup = `${string}:${string}:${string}:${string}:${string}`; // service:show:session:id:type
-
-/**
- * Type used for the structure of identifying clocks
- * @public
- */
-export type ClockIdentifier = {
-    service: string;
-    show: string;
-    session: string;
-    id: string;
-    type: string;
 };
 /**
  * Interface implemented by all Clocks
@@ -134,6 +118,26 @@ export interface IClockSource<Settings = unknown> {
      * @returns if the operation took place
      */
     setTime: (time: SMPTE) => Promise<boolean>;
+    /**
+     * Returns all the {@link ClockIdentifier} of chapters associated with this clock
+     * @returns array of {@link ClockIdentifier}
+     */
+    chapters: () => Promise<ClockIdentifier[]>;
+    /**
+     * Adds a chapter to the known list of chapters
+     * @param - 
+     * @returns if the operation took place
+     */
+    addChapter: (chapter:ClockIdentifier) => Promise<boolean>;
+    /**
+     * Adds a chapter to the known list of chapters
+     * @returns if the operation took place
+     */
+    removeChapter: (chapter:ClockIdentifier) => Promise<boolean>;
+    /**
+     * Sorts the chapters this is not meant to be called from the client only the server
+     */
+    _sortChapters: () => void;
     /**
      * Updates the settings for the clock
      * @param settings - The settings to update

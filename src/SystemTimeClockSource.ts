@@ -1,15 +1,9 @@
-import {
-    BaseClockConfig,
-    IClockSource,
-    ClockStatus,
-    ClockIdentifier,
-    ClockLookup
-} from "./IClockSource.js";
+import { BaseClockConfig, IClockSource, ClockStatus } from "./IClockSource.js";
 import { FrameRate, SMPTE } from "./SMPTE.js";
 import { AsyncUtils } from "@coderatparadise/showrunner-network";
 import { IClockManager } from "./IClockManager.js";
 import { MessageClockCurrent } from "./ClockMessages.js";
-import { ClockIdentifierCodec } from "./codec/index.js";
+import { ClockIdentifier } from "./identifier/ClockIdentifier.js";
 
 let initialized: IClockSource;
 
@@ -25,13 +19,11 @@ export function createSystemTimeClockSource(
     else {
         initialized = {
             identifier(): ClockIdentifier {
-                return {
-                    service: host,
-                    show: "system",
-                    session: manager.id(),
-                    id: "time",
-                    type: "sync"
-                };
+                return new ClockIdentifier(
+                    manager.identifier(),
+                    "time",
+                    "sync"
+                );
             },
             config(): BaseClockConfig {
                 return {
@@ -84,6 +76,18 @@ export function createSystemTimeClockSource(
             async updateConfig(): Promise<void> {
                 // NOOP
             },
+            async chapters(): Promise<ClockIdentifier[]> {
+                return await AsyncUtils.typeReturn<ClockIdentifier[]>([]);
+            },
+            async addChapter(chapter: ClockIdentifier): Promise<boolean> {
+                return await AsyncUtils.booleanReturn(false);
+            },
+            async removeChapter(chapter: ClockIdentifier): Promise<boolean> {
+                return await AsyncUtils.booleanReturn(false);
+            },
+            _sortChapters(): void {
+                // NOOP
+            },
             data(): object {
                 return {};
             },
@@ -95,10 +99,7 @@ export function createSystemTimeClockSource(
                 return await AsyncUtils.voidReturn();
             }
         };
-        manager.startUpdating(
-            ClockIdentifierCodec.serialize(initialized.identifier()) as ClockLookup,
-            initialized._update
-        );
+        manager.startUpdating(initialized.identifier(), initialized._update);
     }
     return initialized;
 }

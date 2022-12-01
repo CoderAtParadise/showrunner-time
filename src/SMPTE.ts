@@ -258,6 +258,10 @@ export class SMPTE {
         }${zeroPad(this.frames(), 2)}`;
     }
 
+    toJSON(): string {
+        return this.toString();
+    }
+
     valueOf(): number {
         return this.frameCount();
     }

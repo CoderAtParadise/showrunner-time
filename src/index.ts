@@ -1,11 +1,5 @@
 import { FrameRate, Offset, SMPTE } from "./SMPTE.js";
-import {
-    ClockStatus,
-    BaseClockConfig,
-    ClockLookup,
-    ClockIdentifier,
-    IClockSource
-} from "./IClockSource.js";
+import { ClockStatus, BaseClockConfig, IClockSource } from "./IClockSource.js";
 import { ClockDirection, ClockBehaviour } from "./ClockSettings.js";
 import { zeroPad } from "./ZeroPad.js";
 import { IClockManager } from "./IClockManager.js";
@@ -25,10 +19,19 @@ import {
     MessageClockCreate,
     MessageClockData,
     MessageClockList,
-    MessageClockRemove
+    MessageClockRemove,
+    MessageClockChapter,
+    MessageClockAddChapter,
+    MessageClockRemoveChapter
 } from "./ClockMessages.js";
 import * as Codec from "./codec/index.js";
-export type { BaseClockConfig, ClockLookup, ClockIdentifier };
+export type { BaseClockConfig };
+import { ClockIdentifier, ClockLookup } from "./identifier/ClockIdentifier.js";
+import {
+    ManagerIdentifier,
+    ManagerLookup
+} from "./identifier/ManagerIdentifier.js";
+import { ChapterClock, ChapterSettings } from "./ChapterClock.js";
 
 export {
     FrameRate,
@@ -56,5 +59,15 @@ export {
     MessageClockData,
     MessageClockList,
     MessageClockRemove,
-    Codec
+    MessageClockChapter,
+    MessageClockAddChapter,
+    MessageClockRemoveChapter,
+    Codec,
+    ClockIdentifier,
+    ManagerIdentifier,
+    ClockLookup,
+    ManagerLookup,
+    ChapterClock
 };
+
+export type { ChapterSettings };
