@@ -11,7 +11,7 @@ import { SMPTEComponent } from "./SMPTEComponent.js";
 export const CurrentDurationComponent = (props: {
     className?: string;
     style?: any;
-    clock: IClockSource;
+    clock: IClockSource<any>;
     show: "current" | "duration";
     showFrames?: boolean;
 }) => {

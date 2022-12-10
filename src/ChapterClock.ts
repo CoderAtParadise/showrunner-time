@@ -5,13 +5,14 @@ import {
     MessageClockCue,
     MessageClockCurrent,
     MessageClockData,
+    MessageClockPause,
     MessageClockPlay,
     MessageClockStop,
     MessageClockUncue
 } from "./ClockMessages.js";
 import { IClockManager } from "./IClockManager.js";
 import { BaseClockConfig, ClockStatus, IClockSource } from "./IClockSource.js";
-import { FrameRate, SMPTE } from "./SMPTE.js";
+import { FrameRate, Offset, SMPTE } from "./SMPTE.js";
 import { ClockIdentifier } from "./identifier/ClockIdentifier.js";
 
 export type ChapterSettings = {
@@ -22,12 +23,13 @@ export class ChapterClock implements IClockSource<ChapterSettings> {
     constructor(
         manager: IClockManager,
         owner: ClockIdentifier,
-        settings: BaseClockConfig & ChapterSettings
+        settings: BaseClockConfig & ChapterSettings,
+        id?: string
     ) {
         this.m_config = settings;
         this.m_manager = manager;
         this.m_owner = owner;
-        this.m_id = uuid();
+        this.m_id = id ? id : uuid();
     }
 
     identifier(): ClockIdentifier {
@@ -47,7 +49,7 @@ export class ChapterClock implements IClockSource<ChapterSettings> {
     }
 
     frameRate(): FrameRate {
-        return this.m_cache?.frameRate() || FrameRate.F1000;
+        return this.cache()?.frameRate() || FrameRate.F1000;
     }
 
     hasIncorrectFrameRate(): boolean {
@@ -63,13 +65,16 @@ export class ChapterClock implements IClockSource<ChapterSettings> {
     }
 
     current(): SMPTE {
-        if (this.m_cache) {
-            const otime = this.m_cache.current();
+        if (this.cache()) {
+            //eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            const otime = this.cache()!.current();
             if (otime.lessThan(this.config().time))
-                return this.config().time.subtract(otime, true);
-            else return new SMPTE("00:00:00:00");
+                return this.config()
+                    .time.subtract(otime, true)
+                    .setOffset(Offset.END);
+            else return SMPTE.ZERO;
         }
-        return new SMPTE();
+        return SMPTE.INVALID;
     }
 
     duration(): SMPTE {
@@ -78,8 +83,8 @@ export class ChapterClock implements IClockSource<ChapterSettings> {
 
     async cue(): Promise<boolean> {
         if (
-            (this.m_status === ClockStatus.UNCUED && this.m_cache?.status()) ===
-            ClockStatus.CUED
+            this.m_status === ClockStatus.UNCUED &&
+            this.cache()?.status() !== ClockStatus.UNCUED
         ) {
             this.m_status = ClockStatus.CUED;
             this.m_manager.startUpdating(
@@ -121,7 +126,10 @@ export class ChapterClock implements IClockSource<ChapterSettings> {
 
     async play(): Promise<boolean> {
         if (this.status() === ClockStatus.STOPPED) void (await this.recue());
-        if (this.m_status === ClockStatus.CUED) {
+        if (
+            this.m_status === ClockStatus.CUED ||
+            this.m_status === ClockStatus.PAUSED
+        ) {
             this.m_status = ClockStatus.RUNNING;
             void this.m_manager.dispatch(
                 { type: MessageClockCurrent, handler: "event" },
@@ -137,12 +145,27 @@ export class ChapterClock implements IClockSource<ChapterSettings> {
     }
 
     // Pause is not needed
-    pause(): Promise<boolean> {
-        return AsyncUtils.booleanReturn(false);
+    async pause(): Promise<boolean> {
+        if (this.status() === ClockStatus.RUNNING) {
+            this.m_status = ClockStatus.PAUSED;
+            void this.m_manager.dispatch(
+                { type: MessageClockCurrent, handler: "event" },
+                this.identifier()
+            );
+            void this.m_manager.dispatch(
+                { type: MessageClockPause, handler: "notify" },
+                this.identifier()
+            );
+            return await AsyncUtils.booleanReturn(true);
+        }
+        return await AsyncUtils.booleanReturn(false);
     }
 
     async stop(): Promise<boolean> {
-        if (this.m_status === ClockStatus.CUED) {
+        if (
+            this.m_status === ClockStatus.RUNNING ||
+            this.m_status === ClockStatus.PAUSED
+        ) {
             this.m_status = ClockStatus.STOPPED;
             void this.m_manager.dispatch(
                 { type: MessageClockCurrent, handler: "event" },
@@ -171,8 +194,9 @@ export class ChapterClock implements IClockSource<ChapterSettings> {
     }
 
     async setTime(time: SMPTE): Promise<boolean> {
-        if (this.m_cache) {
-            if (time.lessThanOrEqual(this.m_cache.duration(), true)) {
+        if (this.cache()) {
+            //eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            if (time.lessThanOrEqual(this.cache()!.duration(), true)) {
                 this.m_config.time = time;
                 if (this.m_manager._sortChapters)
                     this.m_manager._sortChapters(this.m_owner);
@@ -209,23 +233,36 @@ export class ChapterClock implements IClockSource<ChapterSettings> {
             { type: MessageClockConfig, handler: "event" },
             this.m_owner
         );
+        await AsyncUtils.voidReturn();
     }
 
     data(): object {
         return { owner: this.m_owner };
     }
 
-    async _update(): Promise<void> {
+    cache(): IClockSource<unknown> | undefined {
         if (!this.m_cache) {
             this.m_cache = this.m_manager.request(this.m_owner);
-            return await AsyncUtils.voidReturn();
         }
-        if (this.m_cache.status() !== ClockStatus.UNCUED) {
-            if (this.current().greaterThanOrEqual(this.duration()))
+        return this.m_cache;
+    }
+
+    async _update(): Promise<void> {
+        if (this.cache()?.status() !== ClockStatus.UNCUED) {
+            if (this.current().equals(SMPTE.ZERO)) {
                 void (await this.stop());
-            else if (this.current().lessThan(this.duration()))
+            } else if (
+                (this.current().greaterThan(SMPTE.ZERO, true) &&
+                    this.status() === ClockStatus.STOPPED) ||
+                this.status() === ClockStatus.CUED
+            ) {
                 void (await this.play());
+            }
         }
+        void this.m_manager.dispatch({
+            type: MessageClockCurrent,
+            handler: "event"
+        });
         return await AsyncUtils.voidReturn();
     }
 

@@ -125,15 +125,20 @@ export interface IClockSource<Settings = unknown> {
     chapters: () => Promise<ClockIdentifier[]>;
     /**
      * Adds a chapter to the known list of chapters
-     * @param - 
+     * @param chapter - id to add to known chapters
+     * @param loading - if we are loading chapters from file
      * @returns if the operation took place
      */
-    addChapter: (chapter:ClockIdentifier) => Promise<boolean>;
+    addChapter: (
+        chapter: ClockIdentifier,
+        loading?: boolean
+    ) => Promise<boolean>;
     /**
      * Adds a chapter to the known list of chapters
+     * @param chapter - id to remove from known chapters
      * @returns if the operation took place
      */
-    removeChapter: (chapter:ClockIdentifier) => Promise<boolean>;
+    removeChapter: (chapter: ClockIdentifier) => Promise<boolean>;
     /**
      * Sorts the chapters this is not meant to be called from the client only the server
      */

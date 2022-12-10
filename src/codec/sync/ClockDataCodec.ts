@@ -1,5 +1,6 @@
 import {
     Codec,
+    DefaultCodec,
     getCodec,
     serializeTypes
 } from "@coderatparadise/showrunner-network/codec";
@@ -10,8 +11,9 @@ export const ClockDataCodec: Codec<IClockSource> = {
     serialize(obj: IClockSource): serializeTypes {
         const codec = getCodec(
             `sync_clock_data_${obj.identifier().type()}`);
-        let data = {};
-        if (codec !== undefined) data = codec.serialize(obj.data()) as object;
+            let data = {}
+            if(codec !== DefaultCodec)
+                data = codec.serialize(obj.data()) as object;
         return {
             duration: obj.duration(),
             frameRate: obj.frameRate(),

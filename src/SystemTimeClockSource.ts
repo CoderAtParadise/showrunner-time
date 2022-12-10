@@ -50,7 +50,7 @@ export function createSystemTimeClockSource(
                 return new SMPTE(new Date(), FrameRate.F1000);
             },
             duration(): SMPTE {
-                return new SMPTE();
+                return SMPTE.INVALID;
             },
             async cue(): Promise<boolean> {
                 return await AsyncUtils.booleanReturn(false);
@@ -79,10 +79,10 @@ export function createSystemTimeClockSource(
             async chapters(): Promise<ClockIdentifier[]> {
                 return await AsyncUtils.typeReturn<ClockIdentifier[]>([]);
             },
-            async addChapter(chapter: ClockIdentifier): Promise<boolean> {
+            async addChapter(): Promise<boolean> {
                 return await AsyncUtils.booleanReturn(false);
             },
-            async removeChapter(chapter: ClockIdentifier): Promise<boolean> {
+            async removeChapter(): Promise<boolean> {
                 return await AsyncUtils.booleanReturn(false);
             },
             _sortChapters(): void {

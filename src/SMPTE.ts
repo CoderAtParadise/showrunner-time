@@ -413,6 +413,10 @@ export class SMPTE {
             throw new Error("Invalid timecode " + JSON.stringify(this));
     }
 
+    public static INVALID: SMPTE = new SMPTE();
+
+    public static ZERO: SMPTE = new SMPTE(0);
+
     private mIncorrectFrameRate: boolean = false;
     private mHours: number;
     private mMinutes: number;
@@ -424,7 +428,5 @@ export class SMPTE {
     private mFrameCount: number;
     private mBound: { lower: SMPTE; upper: SMPTE } | undefined;
 }
-
-export const INVALID: SMPTE = new SMPTE();
 
 export default { SMPTE, Offset, Framerate: FrameRate };

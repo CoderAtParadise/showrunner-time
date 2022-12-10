@@ -8,7 +8,7 @@ import { SMPTEComponent } from "./SMPTEComponent.js";
 export const ClockDisplayComponent = (props: {
     className?: string;
     style?: any;
-    clock: IClockSource;
+    clock: IClockSource<any>;
     format: 24 | 12;
     showFrames?: boolean;
 }) => {
