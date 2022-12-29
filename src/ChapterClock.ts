@@ -259,10 +259,13 @@ export class ChapterClock implements IClockSource<ChapterSettings> {
                 void (await this.play());
             }
         }
-        void this.m_manager.dispatch({
-            type: MessageClockCurrent,
-            handler: "event"
-        });
+        void this.m_manager.dispatch(
+            {
+                type: MessageClockCurrent,
+                handler: "event"
+            },
+            this.identifier()
+        );
         return await AsyncUtils.voidReturn();
     }
 
